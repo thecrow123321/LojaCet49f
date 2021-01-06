@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using lojacet49f.Dados;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -24,6 +26,17 @@ namespace Lojacet49f
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddDbContext<DataContext>(cfg =>
+            {//cria um servisso que vai buscar o datacontext que criei
+                cfg.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection"));
+                //esse sirvisso vou configurar para usar o SQL server
+                //e vou ter que usar a connect string que usei á pouco que se chama default connection
+                //isto apenas se faz no startup
+
+
+
+            });
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
